@@ -2,6 +2,18 @@ from time import sleep
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+# inputに対して入力するセッタを作成
+def create_setter(id):
+    def setter(value):
+        print(id + "に" + value+"をセットします")
+        return
+    return setter
+
+setter = create_setter("textInput")
+setter("123456780")
+
+
+
 import os
 print(os.getcwd())
 
@@ -10,6 +22,10 @@ options.add_experimental_option('excludeSwitches', ['enable-logging'])#『Blueto
 #options.add_argument("--headless")# ヘッドレスで起動するオプションを指定
 driver = webdriver.Chrome(options=options)
 driver.get('file:///' + os.getcwd() + '/index.html')
+
+ids = driver.find_elements(By.TAG_NAME, "input")
+for i in ids:
+    print(i.get_attribute("id") + "種類は" + i.get_attribute("type"))
 
 # テキストにはもちろん入力できる
 textInput = driver.find_element(By.ID, "textInput")

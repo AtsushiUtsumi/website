@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>自動テスト</title>
+</head>
+
+<body>
+	<a href="./index.html">ホーム</a>
+	<h1>selenuimで自動テストしたい</h1>
+	<p>
+		これはおそらく簡単!!!<br>
+		jsonにイベント誘発コードとチェック用のコードを実行するだけ<br>
+		そのためのリストを作成するツールの作成が面倒かも<br>
+	</p>
+
+	<pre><code>
+def executeTest(path, check):
+	# イベント誘発コードの実行
+	for i in path:
+		print(i + "を実行します")
+	if check:
+		print('PASS')
+	else:
+		print('NG')
+	</code></pre>
+
+</body>
+
+</html>

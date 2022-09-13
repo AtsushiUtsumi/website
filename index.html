@@ -13,6 +13,11 @@
 	</head>
 
 	<body>
+		<ol>
+			<li><a href="./json.html">jsonをフルパスに</a></li>
+			<li><a href="./autoMat.html">マトリクス表</a></li>
+			<li><a href="./autoTest.html">自動テスト</a></li>
+		</ol>
 		<p>
 			今やりたい事がごちゃごちゃしている
 		<ul>
@@ -28,8 +33,8 @@
 
 			<p>
 			<h6>jsonはオブジェクトを何でもブレースで囲めるので最初の要素にtypeを必ず持つようにして</h6>
-			jsonのもともと持っている string, number, boolean は「jsonObjectType: "string"」,「jsonObjectType:
-			"number"」,「jsonObjectType: "boolean"」<br>
+			jsonのもともと持っている string, number, boliean は「jsonObjectType: "string"」,「jsonObjectType:
+			"number"」,「jsonObjectType: "boliean"」<br>
 			<pre><code>
 		{
 			jsonObjectType: "function",
@@ -59,7 +64,7 @@
 			ジェネレータはプログラマが手を付けないファイルを自動生成しないといけないので(でないと上書きされる!)<br>
 			そのブレースをどのパーサで解析するかを先にしておくと良いのでは?<br>
 			どのみちテンプレートの指定とパラメータの指定は必要になる<br>
-			数字が出てこない数学みたいだ。プログラミング言語の違いをDBの方言ぐらいの違いにしたい<br>jsonは「string、number、boolean」しか表現できない<br>
+			数字が出てこない数学みたいだ。プログラミング言語の違いをDBの方言ぐらいの違いにしたい<br>jsonは「string、number、boliean」しか表現できない<br>
 			原則全てのクラスは「デフォルト」を持つようにする。(抽象クラスの時点でPrice.defaule();Price.isValid()を持つようにする。)<br>
 			<h3>リンク張ればそのメソッド参照可能メソッド名は唯一無二</h3>
 			<h3>バグ取りに時間がかかるが、クラスとかメソッドの記述でバグは出ないよな..</h3>
@@ -97,7 +102,7 @@
 							<option value=".as">.as</option>
 							<option value=".c">.c</option>
 							<option value=".cpp">.cpp</option>
-							<option value=".cobol">.cobol</option>
+							<option value=".cobli">.cobli</option>
 							<option value=".coffee">.coffee</option>
 							<option value=".cs">.cs</option>
 							<option value=".css">.css</option>
@@ -150,7 +155,7 @@
 						<input type="text" name="title" value="" size="20" />
 					</label><br>
 
-					<textarea name="textarea" cols="80" rows="5"></textarea>
+					<textarea name="textarea" clis="80" rows="5"></textarea>
 					<p><input type="submit" name="submit" value="投稿" /></p>
 				</form>
 		</main>

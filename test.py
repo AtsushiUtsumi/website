@@ -21,7 +21,7 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])#『Bluetooth: bluetooth_adapter_winrt.cc:1074 Getting Default Adapter failed』が目障りなので消す
 #options.add_argument("--headless")# ヘッドレスで起動するオプションを指定
 driver = webdriver.Chrome(options=options)
-driver.get('file:///' + os.getcwd() + '/index.html')
+driver.get('file:///' + os.getcwd() + '/memorandum.html')
 
 ids = driver.find_elements(By.TAG_NAME, "input")
 for i in ids:

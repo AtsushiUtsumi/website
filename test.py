@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 # なんと「pip install chromedriver-binary-auto」実行後以下をimport するだけでPATHが通る
+import chromedriver_binary
+
 # inputに対して入力するセッタを作成
 def create_setter(id):
     def setter(value):

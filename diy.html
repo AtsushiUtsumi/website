@@ -14,20 +14,20 @@
         <p>
             <h6>ひとまずsvelteで動作確認</h6>
             <pre><code>
-                npm create svelte@latest hoge
+                npm init svelte@next hoge
             </code></pre>
         </p>
         <p>
-            <h6>sugumiをクローン</h6>
+            <h6>プロジェクトルートディレクトリ内でsugumiをクローンして起動</h6>
             <pre><code>
-                (git clone https://github.com/AtsushiUtsumi/sugumi.git) && (cd sugumi)&& (python main.py)
+                (git clone https://github.com/AtsushiUtsumi/sugumi.git) && (cd sugumi) && (python main.py)
             </code></pre>
         </p>
         <p>
-            <h6>sugumi「.env」でディレクトリ設定</h6>
-            <pre><code>
-                DIR='path'
-            </code></pre>
+            <h6>少しごにょごにょ</h6>
+            「.vscode」 ← いつも使っている設定ファイルが有ればプロジェクトルートにコピーしておく
+            「cli」ディレクトリ ← 全言語のアプリケーション層のメソッド呼び出しをCLI動作確認のため入れておく
+            「run.bat」 ← CLIでの動作確認のため上記「cli」ディレクトリ内のファイルを全て実行するバッチファイル            
         </p>
 	</main>
 </body>

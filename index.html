@@ -88,6 +88,11 @@
 			クラスの作成もテストコードも出力に重きを置いて<br>
 			なんならクラスの責務とは少し乱暴かもしれないが、<br>
 			そのクラスの出力で決めても良いかもしれないと思った。<br>
+			同一入力はプレゼンテーション層でまとめてしまって、アプリケーション層は出力ごとに作成する<br>
+			例えばUIにはユースケースの画面からユースケースJsonを入力して、useCase.html(UI側のコード)から<br>
+			アプリケーション層の「generateClassCodeService」「generateUnitTestCodeService」<br>
+			てか、コード生成なのはわかっているから「genarate」は省略して「genarate」パッケージにまとめて<br>
+			「ClassCode」「UnitTestCode」クラスを作ったら良いのでは?<br>
 		</p>
 	</main>
 </body>

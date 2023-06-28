@@ -1,5 +1,5 @@
 def main():
-	print("こんにちは、世界。こちらはバーチャル側にいます。")
+	print("この文章がGitHub側で表示されていればOK")
 	
 if __name__ == '__main__':
 	main()

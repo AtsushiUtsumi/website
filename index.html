@@ -96,6 +96,83 @@
 			「ClassCode」「UnitTestCode」クラスを作ったら良いのでは?これだとパラメータ生成クラスとの整合がとれないのでNGか<br>
 			つまり今入力ベース(useCaseとかentity情報)で作成しているのはあまり良くないような気がする<br>
 		</p>
+
+		<pre><code>
+
+
+// ここからhtml
+			<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フラグメントでimport</title>
+</head>
+<body>
+    このなかでから生成したプルダウンをimportしたい
+    <div th:insert="~{fragment::pullDown2(も)}"></div>
+    <div id="hogehoge" th:insert="~{fragment::template1()}"></div>
+    <div id="fugafuga" th:insert="~{fragment::template2(な)}"></div>
+    <div id="置き換えられるのでこのidは飾り" th:replace="~{fragment::template2(IDは飾り)}"></div>
+</body>
+</html>
+
+
+// 「FRAGMENT.html」
+<div id="fragment1" th:fragment="template1()">
+    <span>template1に置き換えられている
+    </span>
+</div>
+
+<div id="fragment2" th:fragment="template2(text)">
+    引数も渡せる
+    <span th:text="${text}"></span>
+</div>
+
+<select id="pullDown" th:fragment="pullDown(value)">
+    <option th:value="${value}" th:text="${value} + ${value}"></option>
+    <option value="dog">Dog</option>
+    <option value="cat">Cat</option>
+    <option value="hamster">Hamster</option>
+    <option value="parrot">Parrot</option>
+    <option value="spider">Spider</option>
+    <option value="goldfish">Goldfish</option>
+    <script>
+        function hoge(){
+            alert(document.getElementById('pullDown').value);
+        }
+        document.getElementById('pullDown').onchange = hoge;
+    </script>
+</select>
+
+<select id="pullDown" th:fragment="pullDown2(value)">
+    <option th:value="${value}" th:text="${@pullDown.createMap().size()}"></option>
+
+</select>
+<select id="pullDown" th:fragment="pullDown2(value)">
+    <option th:each="x : ${@pullDown.createMap()}" th:value="${x.key}" th:text="${x.value}"></option>
+
+</select>
+
+// 「PullDown.java」
+package com.example.hoge.select;
+
+import java.util.TreeMap;
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class PullDown {
+    public TreeMap<String, String> createMap() {
+        TreeMap<String, String> map = new TreeMap<String, String>();
+        map.put("hoge1", "hogehoge1");
+        map.put("hoge2", "hogehoge2");
+        map.put("hoge3", "hogehoge3");
+        return map;
+    }
+}
+
+		</code></pre>
 	</main>
 </body>
 

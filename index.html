@@ -7,288 +7,42 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Cache-Control" content="no-cache">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<title>アマグラマの妄想録</title>
 </head>
 
 <body>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
 	<main>
-		<p>
-			<pre>
-				<code>
-					import java.lang.annotation.ElementType;
-					import java.lang.annotation.Retention;
-					import java.lang.annotation.RetentionPolicy;
-					import java.lang.annotation.Target;
-					import java.lang.reflect.Field;
-					import java.util.HashMap;
-					import java.util.Map;
-					
-					@Retention(RetentionPolicy.RUNTIME)
-					@Target({
-						ElementType.FIELD
-					})
-					@interface DateFrom {
-					  String label() default "";
-					}
-					
-					@Retention(RetentionPolicy.RUNTIME)
-					@Target({
-						ElementType.FIELD
-					})
-					@interface DateTo {
-					  String label() default "";
-					}
-					
-					class HogeForm {
-					
-					  @DateFrom(label = "伝票日付")
-					  private String from;
-					
-					  public String getFrom() {
-						return this.from;
-					  }
-					
-					  public void setFrom(String from) {
-						this.from = from;
-					  }
-					
-					  @DateTo(label = "伝票日付")
-					  private String to;
-					
-					  public String getTo() {
-						return this.to;
-					  }
-					
-					  public void setTo(String to) {
-						this.to = to;
-					  }
-					}
-					
-					public class Main {
-					
-					  /**
-					   * フォームオブジェクトの日付の範囲チェックを行う
-					   * 
-					   * @param form フォームオブジェクト
-					   * @return
-					   * @throws IllegalArgumentException
-					   * @throws IllegalAccessException
-					   */
-					  static boolean validate(Object form) throws IllegalArgumentException, IllegalAccessException {
-					
-						Map<String, String> map = new HashMap<>();// <ラベル, 日付の下限>
-					
-						// From格納
-						for (Field field : form.getClass().getDeclaredFields()) {
-						  field.setAccessible(true);
-						  DateFrom fromAnnotation = (DateFrom) field.getAnnotation(DateFrom.class);
-						  if (fromAnnotation != null) {
-							map.put(fromAnnotation.label(), (String) field.get(form));
-						  }
-						}
-					
-						// Toで範囲チェック
-						for (Field field : form.getClass().getDeclaredFields()) {
-						  field.setAccessible(true);
-						  DateTo toAnnotation = (DateTo) field.getAnnotation(DateTo.class);
-						  if (toAnnotation != null && map.containsKey(toAnnotation.label())) {
-							String to = (String) field.get(form);
-							String from = map.get(toAnnotation.label());
-							System.out.println(toAnnotation.label() + "の範囲チェック[" + from + "～" + to + "]");
-							if (Integer.valueOf(from) > Integer.valueOf(to)) {
-							  return false;
-							}
-						  }
-						}
-					
-						return true;
-					  }
-					
-					  public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException {
-						HogeForm hogeForm = new HogeForm();
-						hogeForm.setFrom("4");
-						hogeForm.setTo("5");
-						System.err.println(validate(hogeForm));
-						hogeForm.setFrom("6");
-						hogeForm.setTo("5");
-						System.err.println(validate(hogeForm));
-						hogeForm.setFrom("6");
-						hogeForm.setTo("6");
-						System.err.println(validate(hogeForm));
-					  }
-					}
-					
-				</code>
-			</pre>
-		</p>
-		<a href="ant.html">
-			Antについて
-		</a>
-		<a href="caseConverter.html">
-			Pythonで書いたケース変換クラス
-		</a>
-		<p>明日の仕事を数分短縮するための時間</p>
-		<p>
-			<a href="diy.html">
-				作成途中のツール
-			</a>
-		</p>
-		<h6>プロジェクトフォルダ内の「.vscode」のtasks.jsを設定</h6>
-		<p>
+		<p>SpringBootで複数のパラメータを一括テスト</p>
 		<pre><code>
-{
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "taskF6",
-			"type": "shell",
-			"command": "python test.py;echo これはできる",
-		},
-		{
-			"label": "taskF7",
-			"type": "shell",
-			"command": "python test.py;",
-			"presentation": {
-				"echo": true,
-				"reveal": "always",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": false,
-				"clear": true
-			}
-		}
-	]
+package com.example.hoge.user;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class HogeTest {
+
+	// こういう風にテストにも引数をとれる
+	@ParameterizedTest
+	@CsvSource({
+		"1, 1, 2",
+		"2, 3, 5",
+		"1, 5, 6",
+		"1, 2, 3"
+	})
+	void テスト(int a, int b, int expected) {
+		int x = a + b;
+		assertEquals(expected, x);
+	}
 }
-			</code></pre>
-
-		<h6>vscodeの keybindings.json のF6を設定</h6>
-		<p>
-		<pre><code>
-[
-    {
-        "key": "F6",
-        "command": "workbench.action.tasks.runTask",
-        "args": "taskF6"// tasks.jsonで設定したタスクの名前
-    }
-]
-			</code></pre>
-		<h6>vscodeのF6を設定</h6>
-		<p>
-		<pre><code>
-
-[
-    {
-        "key": "F6",
-        "command": "workbench.action.tasks.runTask",
-        "args": "taskF6"// tasks.jsonで設定したタスクの名前
-    }
-]
-			</code></pre>
-		</p>
-		<p>
-			pre-commitファイルにbashコマンドを入れてwindowsで実行できるかを確認したい→できた<br>
-			シバンをpythonのパスに変えればpython→できた<br>
-		</p>
-		<p>
-			jQueryで親要素を取得する方法はparents()かclosest()<br>
-			parent()は使いづらい<br>
-		</p>
-		<a href="./jsonConverter.html">JSONをテストコードに変換</a>
-		<p>AtCoderやりやすくするために環境変数「CPLUS_INCLUDE_PATH」に「E:/GitRepos/ac-library」を設定(ライブラリをダウンロードしたPATHに合わせる)</p>
-		<p>
-			クラスの責務についての思ったこと<br>
-			単一入力複数出力のクラスだとテストが面倒かも。<br>
-			複数入力単一出力のクラスの方が良いかも。<br>
-			クラスの責務はそのクラスの目的に沿って作られるべきな気がする<br>
-			クラスの出力が目的なわけなので...<br>
-			クラスの作成もテストコードも出力に重きを置いて<br>
-			なんならクラスの責務とは少し乱暴かもしれないが、<br>
-			そのクラスの出力で決めても良いかもしれないと思った。<br>
-			同一入力はプレゼンテーション層でまとめてしまって、アプリケーション層は出力ごとに作成する<br>
-			例えばUIにはユースケースの画面からユースケースJsonを入力して、useCase.html(UI側のコード)から<br>
-			アプリケーション層の「generateClassCodeService」「generateUnitTestCodeService」<br>
-			てか、コード生成なのはわかっているから「genarate」は省略して「genarate」パッケージにまとめて<br>
-			「ClassCode」「UnitTestCode」クラスを作ったら良いのでは?これだとパラメータ生成クラスとの整合がとれないのでNGか<br>
-			つまり今入力ベース(useCaseとかentity情報)で作成しているのはあまり良くないような気がする<br>
-		</p>
-
-		<pre><code>
-
-
-// ここからhtml
-			<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フラグメントでimport</title>
-</head>
-<body>
-    このなかでから生成したプルダウンをimportしたい
-    <div th:insert="~{fragment::pullDown2(も)}"></div>
-    <div id="hogehoge" th:insert="~{fragment::template1()}"></div>
-    <div id="fugafuga" th:insert="~{fragment::template2(な)}"></div>
-    <div id="置き換えられるのでこのidは飾り" th:replace="~{fragment::template2(IDは飾り)}"></div>
-</body>
-</html>
-
-
-// 「FRAGMENT.html」
-<div id="fragment1" th:fragment="template1()">
-    <span>template1に置き換えられている
-    </span>
-</div>
-
-<div id="fragment2" th:fragment="template2(text)">
-    引数も渡せる
-    <span th:text="${text}"></span>
-</div>
-
-<select id="pullDown" th:fragment="pullDown(value)">
-    <option th:value="${value}" th:text="${value} + ${value}"></option>
-    <option value="dog">Dog</option>
-    <option value="cat">Cat</option>
-    <option value="hamster">Hamster</option>
-    <option value="parrot">Parrot</option>
-    <option value="spider">Spider</option>
-    <option value="goldfish">Goldfish</option>
-    <script>
-        function hoge(){
-            alert(document.getElementById('pullDown').value);
-        }
-        document.getElementById('pullDown').onchange = hoge;
-    </script>
-</select>
-
-<select id="pullDown" th:fragment="pullDown2(value)">
-    <option th:value="${value}" th:text="${@pullDown.createMap().size()}"></option>
-
-</select>
-<select id="pullDown" th:fragment="pullDown2(value)">
-    <option th:each="x : ${@pullDown.createMap()}" th:value="${x.key}" th:text="${x.value}"></option>
-
-</select>
-
-// 「PullDown.java」
-package com.example.hoge.select;
-
-import java.util.TreeMap;
-import org.springframework.stereotype.Component;
-
-
-@Component
-public class PullDown {
-    public TreeMap<String, String> createMap() {
-        TreeMap<String, String> map = new TreeMap<String, String>();
-        map.put("hoge1", "hogehoge1");
-        map.put("hoge2", "hogehoge2");
-        map.put("hoge3", "hogehoge3");
-        return map;
-    }
-}
-
 		</code></pre>
 	</main>
 </body>

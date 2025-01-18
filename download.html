@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Download Sample</title>
+    </head>
+    <body>
+        <script type='text/javascript'>
+            function handleDownload() {
+                var content = 'class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println("Hello, World!");\n\t}\n}\n';
+                var blob = new Blob([ content ], { "type" : "text/plain" });
+                        
+                if (window.navigator.msSaveBlob) { 
+                    window.navigator.msSaveBlob(blob, "Main.java"); 
+                    
+                    // msSaveOrOpenBlobの場合はファイルを保存せずに開ける
+                    window.navigator.msSaveOrOpenBlob(blob, "Main.java"); 
+                } else {
+                    document.getElementById("download").href = window.URL.createObjectURL(blob);
+                }
+            }
+        </script>
+        <a id="download" href="#" download="Main.java" onclick="handleDownload()">Main.java</a>
+    </body>
+</html>

@@ -26,6 +26,9 @@
             folder2.file("hoge.txt", "Hello, world!");
             folder2.file("data.json", JSON.stringify({ name: "ChatGPT", version: "4.0" }, null, 2));
 
+            const folder3 = folder2.folder("hoge/fuga");
+            folder3.file("hoge.txt", "Hello, world!");
+
             // ZIPを作成
             const blob = await zip.generateAsync({ type: "blob" });
 

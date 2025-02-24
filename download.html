@@ -1,25 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>Download Sample</title>
-    </head>
-    <body>
-        <script type='text/javascript'>
-            function handleDownload() {
-                var content = 'class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println("Hello, World!");\n\t}\n}\n';
-                var blob = new Blob([ content ], { "type" : "text/plain" });
-                        
-                if (window.navigator.msSaveBlob) { 
-                    window.navigator.msSaveBlob(blob, "Main.java"); 
-                    
-                    // msSaveOrOpenBlobの場合はファイルを保存せずに開ける
-                    window.navigator.msSaveOrOpenBlob(blob, "Main.java"); 
-                } else {
-                    document.getElementById("download").href = window.URL.createObjectURL(blob);
-                }
-            }
-        </script>
-        <a id="download" href="#" download="Main.java" onclick="handleDownload()">Main.java</a>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フォルダを動的に作成してダウンロード</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+    <button id="downloadZip">ZIPをダウンロード</button>
+
+    <script>
+        document.getElementById("downloadZip").addEventListener("click", async function () {
+            const zip = new JSZip();
+
+            // フォルダを作成
+            const folder = zip.folder("myFolder");
+
+            // フォルダ内にテキストファイルを追加
+            folder.file("hello.txt", "Hello, world!");
+
+            // フォルダ内にJSONファイルを追加
+            folder.file("data.json", JSON.stringify({ name: "ChatGPT", version: "4.0" }, null, 2));
+
+            const folder2 = zip.folder("hoge");
+            folder2.file("hoge.txt", "Hello, world!");
+            folder2.file("data.json", JSON.stringify({ name: "ChatGPT", version: "4.0" }, null, 2));
+
+            // ZIPを作成
+            const blob = await zip.generateAsync({ type: "blob" });
+
+            // ZIPをダウンロード
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "myFolder.zip";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    </script>
+</body>
 </html>

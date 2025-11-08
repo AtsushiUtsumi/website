@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>フォルダを動的に作成してダウンロード</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="hoge.js"></script>
 </head>
 <body>
     <button id="downloadZip">ZIPをダウンロード</button>
 
     <script>
+        const a = new Hoge('AAA');
+        a.test('BBB');
+        alert(a.getPath());
+        alert(a.getContaints());
         document.getElementById("downloadZip").addEventListener("click", async function () {
             const zip = new JSZip();
 
